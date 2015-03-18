@@ -4,6 +4,6 @@
 public class Life {
     public static void main(String[] args) {
         System.out.println("The game called life, have been soon!!!");
-//        System.in.7
+//        System.in.
     }
 }
