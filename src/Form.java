@@ -21,11 +21,11 @@ public class Form extends JFrame {
         if (temp) return 1;
         else return 0;
     }
-    public void printOnForm(boolean[][] generation){
+    public void display(boolean[][] generation){
         String table = "<HTML>";
-        for (boolean[] aGeneration : generation) {
-            for (boolean anAGeneration : aGeneration) {
-                table = table + " " + isAlive(anAGeneration);
+        for (boolean[] x : generation) {
+            for (boolean y : x) {
+                table = table + " " + isAlive(y);
             }
             table = table + "<br>";
         }

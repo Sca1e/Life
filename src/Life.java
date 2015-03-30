@@ -20,6 +20,7 @@ public class Life  {
             {true, true, false, true, true,false, true, false, true, true,false, true, false, true, true},
     };
     private boolean nextGeneration[][] = new boolean[15][15];
+    private boolean temp[][] = new boolean[15][15];
     private static boolean isAlive(boolean[][] universe, int cellX, int cellY) {
         return universe[cellX][cellY];
     }
@@ -48,19 +49,21 @@ public class Life  {
         boolean alive = isAlive(universe, cellX, cellY);
         return (alive && (neighboursCount == 2 || neighboursCount == 3)) || (!alive && neighboursCount == 3);
     }
+
     private void generateNext() {
         for (int i = 0; i < generation.length; i++) {
             for (int j = 0; j < generation[i].length; j++) {
-                nextGeneration[i][j] = willComeAlive(generation, i, j);
+                temp[i][j] = nextGeneration[i][j] = willComeAlive(generation, i, j);
             }
         }
         boolean[][] t = generation;
         generation = nextGeneration;
         nextGeneration = t;
     }
-    public boolean[][] returnNextGeneration(){
+    public boolean[][] nextGeneration(){
         generateNext();
-        return generation;
+        return temp;
     }
+
 }
 
