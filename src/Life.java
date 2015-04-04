@@ -26,7 +26,13 @@ public class Life {
             {true, true, false, true, true, false, true, false, true, true, false, true, false, true, true},
     };
     private boolean nextGeneration[][] = new boolean[ROW][COLUMN];
-//TODO: Comment me.
+    private boolean currentGeneration[][] = new boolean[ROW][COLUMN];
+    public void initialArrayState() {
+        for (int i = 0; i < generation.length; i++){
+            System.arraycopy(generation[i], 0, currentGeneration[i], 0, generation[i].length);
+        }
+    }
+    //TODO: Comment me.
     private static boolean isAlive(boolean[][] universe, int cellX, int cellY) {
         return universe[cellX][cellY];
     }
@@ -67,24 +73,20 @@ public class Life {
      */
     public boolean[][] nextGeneration() {
         boolean temp[][] = new boolean[ROW][COLUMN];
-        for (int i = 0; i < generation.length; i++) {
-            for (int j = 0; j < generation[i].length; j++) {
-                temp[i][j] = nextGeneration[i][j] = willComeAlive(generation, i, j);
+        for (int i = 0; i < currentGeneration.length; i++) {
+            for (int j = 0; j < currentGeneration[i].length; j++) {
+                temp[i][j] = nextGeneration[i][j] = willComeAlive(currentGeneration, i, j);
             }
         }
-        boolean[][] t = generation;
-        generation = nextGeneration;
+        boolean[][] t = currentGeneration;
+        currentGeneration = nextGeneration;
         nextGeneration = t;
         return temp;
     }
-    public boolean[][] getDefineGeneration(){
-        boolean temp[][] = new boolean[ROW][COLUMN];
-        for (int i = 0; i < generation.length; i++) {
-            for (int j = 0; j < generation[i].length; j++) {
-                temp[i][j] = nextGeneration[i][j] = generation[i][j];
-            }
-        }
-        return temp;
-    }
+
+
+
+
+
 }
 

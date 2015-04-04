@@ -4,56 +4,65 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Form extends JFrame {
-    public static boolean PAUSE = false;
-    JPanel panel = new JPanel();
-    JLabel label1 = new JLabel("Text");
-    JButton buttonRun = new JButton("Run");
-    JButton buttonReset = new JButton("Reset");
+
+    private final String BTN_TEXT_RUN = "Run";
+    private final String BTN_TEXT_PAUSE = "PAUSE";
+
+    private boolean pause = false;
+    private boolean initialState = false;
+
+    private JLabel label1 = new JLabel();
+    private JButton buttonRun = new JButton(BTN_TEXT_RUN);
+
     public Form() {
         super("Life");
         setBounds(300, 300, 400, 400);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        panel.setLayout(null);
+
+        String BTN_TEXT_RESET = "Reset";
+        JButton buttonReset = new JButton(BTN_TEXT_RESET);
+
         label1.setSize(300, 300);
         label1.setLocation(100, 0);
+
         buttonRun.setSize(150, 30);
         buttonRun.setLocation(40, 300);
+
         buttonReset.setSize(150, 30);
         buttonReset.setLocation(200, 300);
+
         buttonRun.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if ("Run".equals(buttonRun.getText())) {
-                    buttonRun.setText("Pause");
-                    PAUSE = true;
-                } else {
-                    buttonRun.setText("Run");
-                    PAUSE = false;
-                }
-
+                buttonRun.setText(pause ? BTN_TEXT_PAUSE : BTN_TEXT_RUN);
+                pause = !pause;
             }
         });
         buttonReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buttonRun.setText("Run");
-                Life game = new Life();
-                display(game.getDefineGeneration());
-                PAUSE = false;
+                buttonRun.setText(BTN_TEXT_RUN);
+                pause = true;
+                initialState = true;
             }
         });
+
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
         panel.add(label1);
         panel.add(buttonRun);
         panel.add(buttonReset);
+
         this.add(panel);
         this.setVisible(true);
-        label1.setForeground(Color.black);
     }
-    private int isAlive(boolean temp){
+
+    private int isAlive(boolean temp) {
         if (temp) return 1;
         else return 0;
     }
-    public void display(boolean[][] generation){
+
+    public void display(boolean[][] generation) {
         StringBuilder table = new StringBuilder();
         table.append("<HTML>");
         for (boolean[] x : generation) {
@@ -66,4 +75,18 @@ public class Form extends JFrame {
         label1.setText(table.toString());
     }
 
+    public boolean isPause() {
+        return pause;
+    }
+
+    public void changeInitialState(boolean temp) {
+        initialState = temp;
+    }
+
+    public boolean isInitialState() {
+        return initialState;
+    }
+    public void setPause(boolean temp){
+        pause = temp;
+    }
 }
